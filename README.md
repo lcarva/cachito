@@ -81,10 +81,12 @@ Alternatively, you could also run the application with
 [podman-compose](https://github.com/containers/podman-compose) by setting the
 `CACHITO_COMPOSE_ENGINE` variable to the path of the `podman-compose` script.
 Unfortunately, the latest release of `podman-compose` contains various bugs making
-it unusable for running Cachito locally. Use the script from the `devel` branch instead:
+it unusable for running Cachito locally. Use the script from the `devel` branch instead.
+To facilitate this, set `CACHITO_COMPOSE_ENGINE` to the special value `podman-compose-auto`.
+which will instruct the Makefile to download and use the correct version of `podman-compose`.
 
 ```bash
-make run CACHITO_COMPOSE_ENGINE=<path to podman-compose.py script>
+make run CACHITO_COMPOSE_ENGINE=podman-compose-auto
 ```
 
 Verify in the browser at [http://localhost:8080/](http://localhost:8080/)
@@ -627,7 +629,7 @@ cache when building the application.
 #### Go package level dependencies and the go-package Cachito package type
 
 On top of finding the Go module and its dependencies, and providing their sources and the proper
-environment variables for a successful build from such sources, Cachito will also discover Go 
+environment variables for a successful build from such sources, Cachito will also discover Go
 packages in the source repository and their (package level) dependencies. By default, the top
 level package is discovered, but optional `path`s can be provided to point Cachito to the package(s)
 to discover.
